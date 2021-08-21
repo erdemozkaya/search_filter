@@ -1,0 +1,31 @@
+<html>
+<head>
+<style>
+div {
+  font-size: 50px;
+}
+span.match {
+  background: gold;
+}
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+</head>
+<body>
+  <p>Lorem İpsum dolor sit amet, consectetur adipisicing elit. Aut voluptatum, provident saepe. Culpa animi sint, itaque iure error hic qui blanditiis perspiciatis adipisci, libero quia veritatis dignissimos quasi id cumque!</p>
+
+	<script>
+	var searchWord = 'an';
+	var rgx = new RegExp('(^|[^\wığüşöçĞÜŞÖÇİ])(' + searchWord + ')([^\wığüşöçĞÜŞÖÇİ]|$)', 'ig');
+
+	$('p, p *').contents().filter(function() {
+	  return this.nodeType === 3;
+	}).each(function() {
+	  $(this).replaceWith($(this).text().replace(rgx, "$1<span class='match'>$2</span>$3"));
+	});
+
+	var positions = $('.match').map(function() {
+	  return this.getBoundingClientRect().top;
+	}).get();
+	</script>
+</body>
+</html>
